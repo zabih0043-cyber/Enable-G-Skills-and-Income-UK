@@ -19,7 +19,18 @@
   const IDEA_LIBRARY = [
     {
       id: "admin",
-      keywords: ["admin", "office", "data", "typing", "organizing", "assistant"],
+      keywords: [
+        "admin",
+        "office",
+        "data",
+        "typing",
+        "organizing",
+        "assistant",
+        "reception",
+        "clerical",
+        "secretary",
+        "booking",
+      ],
       title: "Virtual admin support",
       description: "Inbox help, booking support, quotes, and simple document work.",
       rate: 16,
@@ -27,7 +38,7 @@
     },
     {
       id: "writing",
-      keywords: ["writing", "writer", "content", "copy", "cv", "resume"],
+      keywords: ["writing", "writer", "content", "copy", "cv", "resume", "editing", "proofreading"],
       title: "CV and writing support",
       description: "Help people with CVs, cover letters, bios, or short business copy.",
       rate: 20,
@@ -35,7 +46,7 @@
     },
     {
       id: "social",
-      keywords: ["social", "marketing", "facebook", "instagram", "content"],
+      keywords: ["social", "marketing", "facebook", "instagram", "content", "tiktok", "promo", "advertising"],
       title: "Social media content help",
       description: "Create captions, basic calendars, and posting support for small brands.",
       rate: 18,
@@ -43,15 +54,23 @@
     },
     {
       id: "driving",
-      keywords: ["driving", "driver", "delivery", "transport", "errand"],
+      keywords: ["driving", "driver", "delivery", "transport", "errand", "courier", "uber", "parcel", "van"],
       title: "Errands and delivery runs",
       description: "Offer local errands, collections, or delivery support on flexible hours.",
       rate: 14,
       hours: 5,
     },
     {
+      id: "property",
+      keywords: ["property", "estate", "real estate", "letting", "listing", "viewing", "realtor", "agent"],
+      title: "Property admin and viewing support",
+      description: "Help with listings, viewing prep, follow-up calls, and simple admin for agents or landlords.",
+      rate: 18,
+      hours: 4,
+    },
+    {
       id: "beauty",
-      keywords: ["manicure", "beauty", "hair", "nails", "makeup"],
+      keywords: ["manicure", "beauty", "hair", "nails", "makeup", "braiding", "barber", "lashes", "facial"],
       title: "Mobile beauty service",
       description: "Use beauty skills for home visits, event prep, or quick weekend sessions.",
       rate: 24,
@@ -59,7 +78,7 @@
     },
     {
       id: "care",
-      keywords: ["child", "care", "babysit", "elder", "support"],
+      keywords: ["child", "care", "babysit", "elder", "support", "carer", "caregiver", "nanny", "companion"],
       title: "Care support sessions",
       description: "Offer after-school care, babysitting, or practical support visits.",
       rate: 15,
@@ -75,15 +94,39 @@
     },
     {
       id: "cleaning",
-      keywords: ["cleaning", "organizing", "house", "home", "laundry"],
+      keywords: ["cleaning", "organizing", "house", "home", "laundry", "cleaner", "domestic", "housekeeping"],
       title: "Home reset and organizing",
       description: "Offer decluttering, cupboard resets, or move-in support sessions.",
       rate: 15,
       hours: 5,
     },
     {
+      id: "laundry",
+      keywords: ["laundry", "ironing", "washing", "linen", "uniform", "clothes"],
+      title: "Laundry and ironing help",
+      description: "Offer wash, fold, ironing, or linen refresh support for busy households.",
+      rate: 14,
+      hours: 5,
+    },
+    {
+      id: "garden",
+      keywords: ["garden", "gardening", "lawn", "mowing", "weeding", "hedge", "outdoor", "yard"],
+      title: "Garden tidy and outdoor help",
+      description: "Take on mowing, weeding, leaf clearing, and simple outdoor tidy-up jobs.",
+      rate: 15,
+      hours: 5,
+    },
+    {
+      id: "handyman",
+      keywords: ["handyman", "repair", "maintenance", "diy", "assembly", "flatpack", "fixing", "painting", "labour"],
+      title: "Handy help and flat-pack assembly",
+      description: "Offer simple repairs, flat-pack assembly, painting prep, and practical home setup help.",
+      rate: 18,
+      hours: 4,
+    },
+    {
       id: "tech",
-      keywords: ["tech", "computer", "phone", "device", "support", "it"],
+      keywords: ["tech", "computer", "phone", "device", "support", "it", "setup", "wifi", "printer"],
       title: "Basic tech support",
       description: "Help with phone setup, app installs, printer issues, and troubleshooting.",
       rate: 25,
@@ -91,7 +134,7 @@
     },
     {
       id: "teaching",
-      keywords: ["teach", "tutor", "school", "education", "homework"],
+      keywords: ["teach", "tutor", "school", "education", "homework", "teaching assistant", "reading", "maths", "english"],
       title: "Tutoring and homework help",
       description: "Support school learners with revision, reading, and homework structure.",
       rate: 22,
@@ -99,15 +142,39 @@
     },
     {
       id: "food",
-      keywords: ["cook", "baking", "food", "meal", "kitchen"],
+      keywords: ["cook", "baking", "food", "meal", "kitchen", "chef", "catering", "baker", "cafe"],
       title: "Meal prep or baking orders",
       description: "Package what you make best into pre-orders for families or offices.",
       rate: 16,
       hours: 4,
     },
     {
+      id: "hospitality",
+      keywords: ["hospitality", "waiter", "waitress", "server", "restaurant", "bar", "catering", "event", "events"],
+      title: "Event and hospitality support",
+      description: "Pick up setup, serving, clearing, or hosting support for local events and functions.",
+      rate: 15,
+      hours: 5,
+    },
+    {
+      id: "sewing",
+      keywords: ["sewing", "alteration", "alterations", "tailor", "hemming", "stitch", "fashion"],
+      title: "Clothing repairs and alterations",
+      description: "Turn sewing skills into simple repairs, hemming, and clothing adjustment jobs.",
+      rate: 16,
+      hours: 4,
+    },
+    {
+      id: "moving",
+      keywords: ["moving", "removals", "packing", "unpacking", "furniture", "lifting"],
+      title: "Moving and packing help",
+      description: "Help with packing, lifting, furniture setup, and move-day support.",
+      rate: 15,
+      hours: 5,
+    },
+    {
       id: "sales",
-      keywords: ["sales", "retail", "customer", "promotion", "shop"],
+      keywords: ["sales", "retail", "customer", "promotion", "shop", "cashier", "store", "market", "stall", "merchandising"],
       title: "Weekend sales support",
       description: "Help small businesses with pop-ups, markets, or promotion shifts.",
       rate: 14,
@@ -115,12 +182,9 @@
     },
   ];
 
-  const DEFAULT_IDEAS = [
-    IDEA_LIBRARY[0],
-    IDEA_LIBRARY[3],
-    IDEA_LIBRARY[8],
-    IDEA_LIBRARY[10],
-  ];
+  const DEFAULT_IDEAS = ["admin", "driving", "cleaning", "sales"]
+    .map((id) => IDEA_LIBRARY.find((idea) => idea.id === id))
+    .filter(Boolean);
 
   const $ = (selector) => document.querySelector(selector);
 
