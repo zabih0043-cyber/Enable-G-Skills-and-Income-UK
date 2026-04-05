@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Enable G | Skills & Income UK</title>
+    <title>Enable G | Skills &amp; Income UK</title>
     <meta
       name="description"
       content="Map your monthly needs, price your time, and turn your skills into a practical income plan with Enable G."
@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Outfit:wght@500;600;700;800&amp;family=Playfair+Display:wght@600;700&amp;display=swap"
       rel="stylesheet"
     />
 
@@ -27,7 +27,7 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <div class="app-shell">
-      <header class="site-header" role="banner">
+      <header class="site-header">
         <nav class="nav" aria-label="Primary">
           <div class="brand">
             <img
@@ -40,7 +40,7 @@
             />
 
             <div class="brand-text">
-              <div class="brand-name">Skills & Income</div>
+              <div class="brand-name">Skills &amp; Income</div>
               <div class="brand-tagline">Enable G</div>
             </div>
           </div>
@@ -78,7 +78,7 @@
                 Fits Real Life.
               </h1>
               <p class="hero-subtitle">
-                Enable G - Skills & Income helps you understand your monthly
+                Enable G - Skills &amp; Income helps you understand your monthly
                 needs, price your time, and turn everyday skills into a
                 realistic extra-income plan from your phone.
               </p>
@@ -90,12 +90,10 @@
                 <a class="btn btn-ghost" href="#summaryTitle">View summary</a>
               </div>
 
-              <div class="hero-stats" aria-label="Live plan summary">
+              <section class="hero-stats" aria-label="Live plan summary">
                 <article class="hero-stat">
                   <span class="stat-label">Target gap</span>
-                  <output id="heroExtraIncome" class="stat-value"
-                    >&pound;0</output
-                  >
+                  <output id="heroExtraIncome" class="stat-value">£0</output>
                   <p class="stat-note">
                     How much extra monthly income you still need.
                   </p>
@@ -111,12 +109,12 @@
 
                 <article class="hero-stat">
                   <span class="stat-label">Planned services</span>
-                  <output id="heroServices" class="stat-value">&pound;0</output>
+                  <output id="heroServices" class="stat-value">£0</output>
                   <p class="stat-note">
                     Monthly income currently planned from services.
                   </p>
                 </article>
-              </div>
+              </section>
             </div>
 
             <aside class="hero-side" aria-label="Enable G overview">
@@ -157,7 +155,7 @@
 
       <main id="main" class="container">
         <div class="layout">
-          <div class="content" aria-label="Calculator inputs">
+          <section class="content" aria-label="Calculator inputs">
             <section class="card status-card" aria-labelledby="planStatusTitle">
               <header class="card-header compact-header">
                 <div>
@@ -189,15 +187,13 @@
                 <article class="status-metric">
                   <span class="status-label">Gap remaining</span>
                   <output id="gapRemainingValue" class="status-value"
-                    >&pound;0</output
+                    >£0</output
                   >
                 </article>
 
                 <article class="status-metric">
                   <span class="status-label">Income with services</span>
-                  <output id="totalIncomeValue" class="status-value"
-                    >&pound;0</output
-                  >
+                  <output id="totalIncomeValue" class="status-value">£0</output>
                 </article>
               </div>
             </section>
@@ -242,7 +238,7 @@
               <div class="grid-2">
                 <div class="field">
                   <label for="currentMonthlyIncome">
-                    My Current Income (monthly, after tax) - &pound;
+                    My Current Income (monthly, after tax) - £
                   </label>
                   <input
                     id="currentMonthlyIncome"
@@ -257,7 +253,7 @@
 
                 <div class="field">
                   <label for="targetMonthlyIncome">
-                    My Target for 2026 (monthly) - &pound;
+                    My Target for 2026 (monthly) - £
                   </label>
                   <input
                     id="targetMonthlyIncome"
@@ -270,8 +266,7 @@
                     value="1700"
                   />
                   <p class="hint" id="targetHint">
-                    Enable G recommends aiming for at least &pound;1,700 per
-                    month.
+                    Enable G recommends aiming for at least £1,700 per month.
                   </p>
                 </div>
               </div>
@@ -286,9 +281,8 @@
                 </p>
               </header>
 
-              <div
+              <section
                 class="table-wrap"
-                role="region"
                 aria-label="Needs costs table"
                 tabindex="0"
               >
@@ -296,7 +290,7 @@
                   <thead>
                     <tr>
                       <th scope="col">Item</th>
-                      <th scope="col" class="right">Amount (&pound;)</th>
+                      <th scope="col" class="right">Amount (£)</th>
                     </tr>
                   </thead>
 
@@ -372,14 +366,12 @@
                     <tr>
                       <th scope="row">Total Monthly Needs</th>
                       <td class="right">
-                        <output id="needsTotal" aria-live="polite"
-                          >&pound;0</output
-                        >
+                        <output id="needsTotal" aria-live="polite">£0</output>
                       </td>
                     </tr>
                   </tfoot>
                 </table>
-              </div>
+              </section>
             </section>
 
             <section class="card" aria-labelledby="currentTitle">
@@ -403,7 +395,7 @@
 
                 <div class="field">
                   <label for="salaryAfterTax"
-                    >Monthly Salary (after tax) - &pound;</label
+                    >Monthly Salary (after tax) - £</label
                   >
                   <input
                     id="salaryAfterTax"
@@ -432,13 +424,13 @@
                 </div>
 
                 <div class="field">
-                  <label>Current hourly pay rate (&pound;/hr)</label>
+                  <label>Current hourly pay rate (£/hr)</label>
                   <output
                     id="currentHourlyRate"
                     class="output"
                     aria-live="polite"
                   >
-                    &pound;0
+                    £0
                   </output>
                   <p class="hint">Calculated from salary and weekly hours.</p>
                 </div>
@@ -457,7 +449,7 @@
               <div class="grid-2">
                 <div class="field">
                   <label for="minHourlyRate"
-                    >Minimum hourly rate (at least &pound;11/hr)</label
+                    >Minimum hourly rate (at least £11/hr)</label
                   >
                   <input
                     id="minHourlyRate"
@@ -469,13 +461,13 @@
                     value="11"
                   />
                   <p class="hint" id="minRateHint">
-                    Guideline: do not price below &pound;11/hr.
+                    Guideline: do not price below £11/hr.
                   </p>
                 </div>
 
                 <div class="field">
                   <label for="targetMonthly"
-                    >Target monthly income (min &pound;1,700)</label
+                    >Target monthly income (min £1,700)</label
                   >
                   <input
                     id="targetMonthly"
@@ -495,7 +487,7 @@
                     class="output"
                     aria-live="polite"
                   >
-                    &pound;0
+                    £0
                   </output>
                 </div>
 
@@ -511,12 +503,10 @@
                 </div>
               </div>
 
-              <div class="insight-grid" aria-label="Planning insights">
+              <section class="insight-grid" aria-label="Planning insights">
                 <article class="insight-card">
                   <span class="insight-label">Income vs needs</span>
-                  <output id="needsCoverage" class="insight-value"
-                    >&pound;0</output
-                  >
+                  <output id="needsCoverage" class="insight-value">£0</output>
                   <p class="insight-copy" id="needsCoverageText">
                     Add your current income and needs to see whether essentials
                     are covered.
@@ -526,7 +516,7 @@
                 <article class="insight-card">
                   <span class="insight-label">Recommended rate</span>
                   <output id="recommendedRate" class="insight-value"
-                    >&pound;11/hr</output
+                    >£11/hr</output
                   >
                   <p class="insight-copy" id="rateGuidanceText">
                     Your current hourly rate helps you choose a fair minimum.
@@ -536,14 +526,14 @@
                 <article class="insight-card">
                   <span class="insight-label">Gap after services</span>
                   <output id="remainingGapInline" class="insight-value"
-                    >&pound;0</output
+                    >£0</output
                   >
                   <p class="insight-copy" id="remainingGapText">
                     Add service lines to see how much of the target is still
                     open.
                   </p>
                 </article>
-              </div>
+              </section>
             </section>
 
             <section class="card" aria-labelledby="skillsTitle">
@@ -581,7 +571,7 @@
                 support.
               </p>
 
-              <div class="ideas-panel" aria-labelledby="ideasTitle">
+              <section class="ideas-panel" aria-labelledby="ideasTitle">
                 <div class="ideas-header">
                   <div>
                     <p class="eyebrow">Suggested services</p>
@@ -594,7 +584,7 @@
                 <p class="empty-state" id="serviceIdeasEmpty">
                   Add a few skills or past roles to unlock tailored suggestions.
                 </p>
-              </div>
+              </section>
             </section>
 
             <section class="card" aria-labelledby="servicesTitle">
@@ -606,7 +596,7 @@
                 </p>
               </header>
 
-              <div class="services-overview" aria-label="Services overview">
+              <section class="services-overview" aria-label="Services overview">
                 <article class="service-summary">
                   <span class="service-summary-label"
                     >Planned hours per week</span
@@ -629,10 +619,10 @@
                 <article class="service-summary">
                   <span class="service-summary-label">Gap remaining</span>
                   <output id="remainingGap" class="service-summary-value">
-                    &pound;0
+                    £0
                   </output>
                 </article>
-              </div>
+              </section>
 
               <div class="card-actions">
                 <button
@@ -644,9 +634,8 @@
                 </button>
               </div>
 
-              <div
+              <section
                 class="table-wrap"
-                role="region"
                 aria-label="Services table"
                 tabindex="0"
               >
@@ -655,8 +644,8 @@
                     <tr>
                       <th scope="col">Service</th>
                       <th scope="col" class="right">Hrs/week</th>
-                      <th scope="col" class="right">Rate/h (&pound;)</th>
-                      <th scope="col" class="right">Monthly (&pound;)</th>
+                      <th scope="col" class="right">Rate/h (£)</th>
+                      <th scope="col" class="right">Monthly (£)</th>
                       <th scope="col" class="right">
                         <span class="sr-only">Actions</span>
                       </th>
@@ -703,9 +692,7 @@
                         />
                       </td>
                       <td class="right">
-                        <output id="svcMonthly0" aria-live="polite"
-                          >&pound;0</output
-                        >
+                        <output id="svcMonthly0" aria-live="polite">£0</output>
                       </td>
                       <td class="right">
                         <button
@@ -724,18 +711,18 @@
                   <tfoot>
                     <tr>
                       <th scope="row" colspan="3">
-                        Total extra income (monthly)
+                        Total Extra Income (Monthly)
                       </th>
                       <td class="right">
                         <output id="servicesTotal" aria-live="polite"
-                          >&pound;0</output
+                          >£0</output
                         >
                       </td>
                       <td></td>
                     </tr>
                   </tfoot>
                 </table>
-              </div>
+              </section>
 
               <details class="assumptions">
                 <summary>Assumptions</summary>
@@ -751,7 +738,7 @@
                 </ul>
               </details>
             </section>
-          </div>
+          </section>
 
           <aside class="summary" aria-label="Summary">
             <section class="card summary-card" aria-labelledby="summaryTitle">
@@ -765,19 +752,19 @@
               <dl class="summary-list">
                 <div>
                   <dt>Total monthly needs</dt>
-                  <dd><output id="sumNeeds">&pound;0</output></dd>
+                  <dd><output id="sumNeeds">£0</output></dd>
                 </div>
                 <div>
                   <dt>Current hourly rate</dt>
-                  <dd><output id="sumHourly">&pound;0</output></dd>
+                  <dd><output id="sumHourly">£0</output></dd>
                 </div>
                 <div>
                   <dt>Target monthly income</dt>
-                  <dd><output id="sumTarget">&pound;1,700</output></dd>
+                  <dd><output id="sumTarget">£1,700</output></dd>
                 </div>
                 <div>
                   <dt>Extra income needed</dt>
-                  <dd><output id="sumExtraIncome">&pound;0</output></dd>
+                  <dd><output id="sumExtraIncome">£0</output></dd>
                 </div>
                 <div>
                   <dt>Extra hours/week needed</dt>
@@ -786,15 +773,15 @@
                 <div class="divider" aria-hidden="true"></div>
                 <div>
                   <dt>Planned extra income</dt>
-                  <dd><output id="sumServices">&pound;0</output></dd>
+                  <dd><output id="sumServices">£0</output></dd>
                 </div>
                 <div>
                   <dt>Remaining gap</dt>
-                  <dd><output id="sumRemainingGap">&pound;0</output></dd>
+                  <dd><output id="sumRemainingGap">£0</output></dd>
                 </div>
                 <div>
                   <dt>Total income with services</dt>
-                  <dd><output id="sumIncomeWithServices">&pound;0</output></dd>
+                  <dd><output id="sumIncomeWithServices">£0</output></dd>
                 </div>
               </dl>
 
@@ -826,11 +813,11 @@
               <div class="progress-split">
                 <div>
                   <span class="progress-label">Current income</span>
-                  <output id="summaryCurrentIncome">&pound;0</output>
+                  <output id="summaryCurrentIncome">£0</output>
                 </div>
                 <div>
                   <span class="progress-label">Service plan</span>
-                  <output id="summaryServicePlan">&pound;0</output>
+                  <output id="summaryServicePlan">£0</output>
                 </div>
               </div>
             </section>
