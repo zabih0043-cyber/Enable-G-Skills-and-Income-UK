@@ -1,0 +1,17 @@
+{
+  "name": "enable-g-skills-and-income-uk",
+  "version": "1.0.0",
+  "description": "UK version of the Enable G Skills and Income planner.",
+  "scripts": {
+    "start": "parcel index.html",
+    "dev": "parcel index.html",
+    "build": "parcel build index.html --public-url ./"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
