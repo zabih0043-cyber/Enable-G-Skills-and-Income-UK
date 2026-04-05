@@ -335,7 +335,7 @@
     row.innerHTML = `
       <td>
         <label class="sr-only" for="svcDesc${index}">Service description</label>
-        <input id="svcDesc${index}" type="text" placeholder="e.g. Weekend car wash service" />
+        <input id="svcDesc${index}" type="text" placeholder="e.g. Admin" />
       </td>
       <td class="right">
         <label class="sr-only" for="svcHours${index}">Hours per week</label>
