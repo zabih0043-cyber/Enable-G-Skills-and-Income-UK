@@ -1177,10 +1177,18 @@
       const { jsPDF } = jsPdfModule;
       const doc = new jsPDF({ unit: "mm", format: "a4" });
       const logoImage = $(".brand-logo");
+      const logoX = 14;
+      const logoY = 10;
+      const logoSize = 24;
+      const titleY = 18;
+      const detailsStartY = 38;
+      const summaryTitleY = 58;
+      const summaryLineStartY = 64;
+      const pageCenterX = doc.internal.pageSize.getWidth() / 2;
 
       try {
         const logoDataUrl = await imageElementToDataUrl(logoImage);
-        doc.addImage(logoDataUrl, "PNG", 14, 10, 16, 16);
+        doc.addImage(logoDataUrl, "PNG", logoX, logoY, logoSize, logoSize);
       } catch (error) {
         // Continue without a logo if it cannot be exported.
       }
@@ -1191,19 +1199,19 @@
 
       doc.setFont("helvetica", "bold");
       doc.setFontSize(16);
-      doc.text("Enable G - Skills & Income (UK)", 34, 18);
+      doc.text("Enable G - Skills & Income (UK)", pageCenterX, titleY, { align: "center" });
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
-      doc.text(`Name: ${name}`, 14, 30);
-      doc.text(`Date: ${date}`, 14, 35);
-      doc.text(`Reference: ${reference}`, 14, 40);
+      doc.text(`Name: ${name}`, 14, detailsStartY);
+      doc.text(`Date: ${date}`, 14, detailsStartY + 5);
+      doc.text(`Reference: ${reference}`, 14, detailsStartY + 10);
 
       doc.setFont("helvetica", "bold");
-      doc.text("Summary", 14, 50);
+      doc.text("Summary", 14, summaryTitleY);
       doc.setFont("helvetica", "normal");
       getPdfTextLines(plan).forEach((line, index) => {
-        doc.text(line, 14, 56 + index * 5);
+        doc.text(line, 14, summaryLineStartY + index * 5);
       });
 
       const serviceRows = getServiceRows().map((row) => {
@@ -1218,7 +1226,7 @@
 
       if (typeof doc.autoTable === "function") {
         doc.autoTable({
-          startY: 108,
+          startY: 116,
           head: [["Monthly needs", `Amount (${CURRENCY_SYMBOL})`]],
           body: [
             ["Rent / Mortgage", formatCurrency(readNumber(elements.needRent))],
@@ -1273,14 +1281,14 @@
         });
       } else {
         doc.setFont("helvetica", "bold");
-        doc.text("Services plan", 14, 116);
+        doc.text("Services plan", 14, 124);
         doc.setFont("helvetica", "normal");
 
         serviceRows.forEach((row, index) => {
           doc.text(
             `${row[0]} | ${row[1]} hrs/wk | ${row[2]} | ${row[3]}`,
             14,
-            122 + index * 6
+            130 + index * 6
           );
         });
       }

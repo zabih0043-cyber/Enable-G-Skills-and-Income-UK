@@ -221,13 +221,34 @@ h1 {
 }
 
 .brand-name {
-  font-size: 1.34rem;
+  font-size: 1.54rem;
   font-weight: 700;
+  line-height: 1.08;
+  text-wrap: balance;
 }
 
 .brand-tagline {
   font-size: 0.94rem;
   color: var(--ink-soft);
+}
+
+.brand-version {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border: 1px solid rgba(38, 98, 67, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--accent-deep);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  vertical-align: middle;
+}
+
+.pill .brand-version {
+  background: rgba(255, 255, 255, 0.84);
 }
 
 .nav-meta {
