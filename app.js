@@ -32,14 +32,14 @@
         "booking",
       ],
       title: "Virtual admin support",
-      description: "Inbox help, booking support, quotes, and simple document work.",
+      description: "Inbox help, booking support, quotes, & simple document work.",
       rate: 16,
       hours: 4,
     },
     {
       id: "writing",
       keywords: ["writing", "writer", "content", "copy", "cv", "resume", "editing", "proofreading"],
-      title: "CV and writing support",
+      title: "CV & writing support",
       description: "Help people with CVs, cover letters, bios, or short business copy.",
       rate: 20,
       hours: 3,
@@ -48,14 +48,14 @@
       id: "social",
       keywords: ["social", "marketing", "facebook", "instagram", "content", "tiktok", "promo", "advertising"],
       title: "Social media content help",
-      description: "Create captions, basic calendars, and posting support for small brands.",
+      description: "Create captions, basic calendars, & posting support for small brands.",
       rate: 18,
       hours: 4,
     },
     {
       id: "driving",
       keywords: ["driving", "driver", "delivery", "transport", "errand", "courier", "uber", "parcel", "van"],
-      title: "Errands and delivery runs",
+      title: "Errands & delivery runs",
       description: "Offer local errands, collections, or delivery support on flexible hours.",
       rate: 14,
       hours: 5,
@@ -63,8 +63,8 @@
     {
       id: "property",
       keywords: ["property", "estate", "real estate", "letting", "listing", "viewing", "realtor", "agent"],
-      title: "Property admin and viewing support",
-      description: "Help with listings, viewing prep, follow-up calls, and simple admin for agents or landlords.",
+      title: "Property admin & viewing support",
+      description: "Help with listings, viewing prep, follow-up calls, & simple admin for agents or landlords.",
       rate: 18,
       hours: 4,
     },
@@ -87,15 +87,15 @@
     {
       id: "pets",
       keywords: ["pet", "dog", "animal", "cat", "walking"],
-      title: "Pet sitting and dog walking",
-      description: "Turn reliability and routine into short paid visits during the week.",
+      title: "Pet sitting & dog walking",
+      description: "Turn reliability & routine into short paid visits during the week.",
       rate: 14,
       hours: 4,
     },
     {
       id: "cleaning",
       keywords: ["cleaning", "organizing", "house", "home", "laundry", "cleaner", "domestic", "housekeeping"],
-      title: "Home reset and organizing",
+      title: "Home reset & organizing",
       description: "Offer decluttering, cupboard resets, or move-in support sessions.",
       rate: 15,
       hours: 5,
@@ -103,7 +103,7 @@
     {
       id: "laundry",
       keywords: ["laundry", "ironing", "washing", "linen", "uniform", "clothes"],
-      title: "Laundry and ironing help",
+      title: "Laundry & ironing help",
       description: "Offer wash, fold, ironing, or linen refresh support for busy households.",
       rate: 14,
       hours: 5,
@@ -111,16 +111,16 @@
     {
       id: "garden",
       keywords: ["garden", "gardening", "lawn", "mowing", "weeding", "hedge", "outdoor", "yard"],
-      title: "Garden tidy and outdoor help",
-      description: "Take on mowing, weeding, leaf clearing, and simple outdoor tidy-up jobs.",
+      title: "Garden tidy & outdoor help",
+      description: "Take on mowing, weeding, leaf clearing, & simple outdoor tidy-up jobs.",
       rate: 15,
       hours: 5,
     },
     {
       id: "handyman",
       keywords: ["handyman", "repair", "maintenance", "diy", "assembly", "flatpack", "fixing", "painting", "labour"],
-      title: "Handy help and flat-pack assembly",
-      description: "Offer simple repairs, flat-pack assembly, painting prep, and practical home setup help.",
+      title: "Handy help & flat-pack assembly",
+      description: "Offer simple repairs, flat-pack assembly, painting prep, & practical home setup help.",
       rate: 18,
       hours: 4,
     },
@@ -128,15 +128,15 @@
       id: "tech",
       keywords: ["tech", "computer", "phone", "device", "support", "it", "setup", "wifi", "printer"],
       title: "Basic tech support",
-      description: "Help with phone setup, app installs, printer issues, and troubleshooting.",
+      description: "Help with phone setup, app installs, printer issues, & troubleshooting.",
       rate: 25,
       hours: 3,
     },
     {
       id: "teaching",
       keywords: ["teach", "tutor", "school", "education", "homework", "teaching assistant", "reading", "maths", "english"],
-      title: "Tutoring and homework help",
-      description: "Support school learners with revision, reading, and homework structure.",
+      title: "Tutoring & homework help",
+      description: "Support school learners with revision, reading, & homework structure.",
       rate: 22,
       hours: 4,
     },
@@ -151,24 +151,24 @@
     {
       id: "hospitality",
       keywords: ["hospitality", "waiter", "waitress", "server", "restaurant", "bar", "catering", "event", "events"],
-      title: "Event and hospitality support",
-      description: "Pick up setup, serving, clearing, or hosting support for local events and functions.",
+      title: "Event & hospitality support",
+      description: "Pick up setup, serving, clearing, or hosting support for local events & functions.",
       rate: 15,
       hours: 5,
     },
     {
       id: "sewing",
       keywords: ["sewing", "alteration", "alterations", "tailor", "hemming", "stitch", "fashion"],
-      title: "Clothing repairs and alterations",
-      description: "Turn sewing skills into simple repairs, hemming, and clothing adjustment jobs.",
+      title: "Clothing repairs & alterations",
+      description: "Turn sewing skills into simple repairs, hemming, & clothing adjustment jobs.",
       rate: 16,
       hours: 4,
     },
     {
       id: "moving",
       keywords: ["moving", "removals", "packing", "unpacking", "furniture", "lifting"],
-      title: "Moving and packing help",
-      description: "Help with packing, lifting, furniture setup, and move-day support.",
+      title: "Moving & packing help",
+      description: "Help with packing, lifting, furniture setup, & move-day support.",
       rate: 15,
       hours: 5,
     },
@@ -565,14 +565,14 @@
   function updateStatus(plan) {
     let badgeText = "Setup needed";
     let badgeClass = "tone-neutral";
-    let statusText = "Add your income, target, and rate to unlock a full plan view.";
+    let statusText = "Add your income, target, & rate to unlock a full plan view.";
     let summaryMessage =
-      "Start with your income, needs, and weekly hours to build a realistic plan.";
+      "Start with your income, needs, & weekly hours to build a realistic plan.";
 
     if (!plan.currentIncome) {
       badgeText = "Income needed";
       badgeClass = "tone-warning";
-      statusText = "Add your current income to see the gap between where you are and your goal.";
+      statusText = "Add your current income to see the gap between where you are & your goal.";
     } else if (plan.needsCoverage < 0) {
       badgeText = "Needs not covered";
       badgeClass = "tone-danger";
@@ -602,9 +602,9 @@
       badgeText = "Target covered";
       badgeClass = "tone-success";
       statusText =
-        "Your current income plus planned side hustles cover the target. Focus on consistency and scheduling.";
+        "Your current income plus planned side hustles cover the target. Focus on consistency & scheduling.";
       summaryMessage =
-        "Your plan currently meets the target. Keep checking that hours and rates stay realistic.";
+        "Your plan currently meets the target. Keep checking that hours & rates stay realistic.";
     }
 
     if (plan.minimumRateInput > 0 && plan.minimumRateInput < DEFAULT_MIN_RATE) {
@@ -663,7 +663,7 @@
 
     if (plan.needsCoverage < 0 && plan.currentIncome > 0) {
       steps.push(
-        `Close the ${formatCurrency(Math.abs(plan.needsCoverage))} gap between current income and monthly needs.`
+        `Close the ${formatCurrency(Math.abs(plan.needsCoverage))} gap between current income & monthly needs.`
       );
     }
 
@@ -684,7 +684,7 @@
     }
 
     if (!steps.length) {
-      steps.push("Your plan is on track. Next, confirm the schedule, customers, and pricing.");
+      steps.push("Your plan is on track. Next, confirm the schedule, customers, & pricing.");
       steps.push("Export the PDF when you are ready to share or review the plan.");
     }
 
@@ -842,7 +842,7 @@
     } else {
       setText(
         elements.needsCoverageText,
-        "Add your current income and needs to see whether essentials are covered."
+        "Add your current income & needs to see whether essentials are covered."
       );
     }
 
@@ -863,7 +863,7 @@
     } else {
       setText(
         elements.rateGuidanceText,
-        "Add weekly hours and income to estimate a fair minimum rate."
+        "Add weekly hours & income to estimate a fair minimum rate."
       );
     }
 
@@ -884,7 +884,7 @@
     } else if (plan.remainingGap === 0 && plan.totalIncomeWithServices > 0) {
       setText(
         elements.remainingGapText,
-        "Your current income and planned side hustles now cover the target."
+        "Your current income & planned side hustles now cover the target."
       );
     } else {
       setText(
@@ -1011,7 +1011,7 @@
   }
 
   function resetAll() {
-    if (!window.confirm("Clear all fields and remove the saved local copy of this worksheet?")) {
+    if (!window.confirm("Clear all fields & remove the saved local copy of this worksheet?")) {
       return;
     }
 
@@ -1047,7 +1047,7 @@
       // Ignore storage errors during reset.
     }
 
-    setText(elements.saveStatus, "Private and autosaved locally");
+    setText(elements.saveStatus, "Private & autosaved locally");
     lastIdeasSignature = "";
     renderIdeas(true);
     recalcAndPersist();
@@ -1254,7 +1254,7 @@
           head: [["Monthly needs", `Amount (${CURRENCY_SYMBOL})`]],
           body: [
             ["Rent / Mortgage", formatCurrency(readNumber(elements.needRent))],
-            ["Food and living essentials", formatCurrency(readNumber(elements.needFood))],
+            ["Food & living essentials", formatCurrency(readNumber(elements.needFood))],
             ["Bills, travel, petrol, utilities", formatCurrency(readNumber(elements.needBills))],
             ["Debt costs", formatCurrency(readNumber(elements.needDebt))],
             [
@@ -1400,7 +1400,7 @@
     wireEvents();
     renderIdeas(true);
 
-    if (!restored) setText(elements.saveStatus, "Private and autosaved locally");
+    if (!restored) setText(elements.saveStatus, "Private & autosaved locally");
     recalcAndPersist({ save: false });
   }
 
