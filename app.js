@@ -71,7 +71,7 @@
     {
       id: "beauty",
       keywords: ["manicure", "beauty", "hair", "nails", "makeup", "braiding", "barber", "lashes", "facial"],
-      title: "Mobile beauty service",
+      title: "Mobile beauty side hustle",
       description: "Use beauty skills for home visits, event prep, or quick weekend sessions.",
       rate: 24,
       hours: 4,
@@ -302,13 +302,14 @@
   function formatCurrency(amount) {
     const value = Number.isFinite(amount) ? amount : 0;
     const rounded = Math.round(value);
-    const formatted = rounded
+    const sign = rounded < 0 ? "-" : "";
+    const formatted = Math.abs(rounded)
       .toLocaleString(LOCALE, {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
       })
       .replace(/\s/g, " ");
-    return `${CURRENCY_SYMBOL}${formatted}`;
+    return `${sign}${CURRENCY_SYMBOL}${formatted}`;
   }
 
   function formatHours(hours) {
@@ -398,7 +399,7 @@
 
     row.innerHTML = `
       <td>
-        <label class="sr-only" for="svcDesc${index}">Service description</label>
+        <label class="sr-only" for="svcDesc${index}">Side hustle description</label>
         <input id="svcDesc${index}" type="text" placeholder="e.g. Admin" />
       </td>
       <td class="right">
@@ -465,11 +466,11 @@
       if (rows.length <= 1) {
         button.disabled = true;
         button.setAttribute("aria-disabled", "true");
-        button.title = "Add another service before removing this row";
+        button.title = "Add another side hustle before removing this row";
       } else {
         button.disabled = false;
         button.setAttribute("aria-disabled", "false");
-        button.title = "Remove this service";
+        button.title = "Remove this side hustle";
       }
     });
   }
@@ -583,7 +584,7 @@
     } else if (plan.remainingGap > 0 && plan.servicesMonthly > 0) {
       badgeText = "Plan in progress";
       badgeClass = "tone-warning";
-      statusText = `Your service plan has closed ${formatPercent(
+      statusText = `Your side hustle plan has closed ${formatPercent(
         plan.serviceCoverage
       )} of the extra-income gap.`;
       summaryMessage = `You still need ${formatCurrency(
@@ -596,12 +597,12 @@
         plan.extraIncomeNeeded
       )} extra each month, or about ${formatHours(plan.extraHoursNeeded)} extra hours per week.`;
       summaryMessage =
-        "Add one or two services below to see how your target becomes more realistic.";
+        "Add one or two side hustles below to see how your target becomes more realistic.";
     } else {
       badgeText = "Target covered";
       badgeClass = "tone-success";
       statusText =
-        "Your current income plus planned services cover the target. Focus on consistency and scheduling.";
+        "Your current income plus planned side hustles cover the target. Focus on consistency and scheduling.";
       summaryMessage =
         "Your plan currently meets the target. Keep checking that hours and rates stay realistic.";
     }
@@ -667,19 +668,19 @@
     }
 
     if (plan.minimumRateInput > 0 && plan.minimumRateInput < DEFAULT_MIN_RATE) {
-      steps.push(`Lift your minimum service rate to at least ${CURRENCY_SYMBOL}${DEFAULT_MIN_RATE}/hr.`);
+      steps.push(`Lift your minimum side hustle rate to at least ${CURRENCY_SYMBOL}${DEFAULT_MIN_RATE}/hr.`);
     }
 
     if (plan.remainingServiceGap > 0 && plan.currentIncome > 0) {
       steps.push(
-        `Add about ${formatHours(plan.remainingServiceHours)} more service hours per week or increase pricing to close the remaining ${formatCurrency(
+        `Add about ${formatHours(plan.remainingServiceHours)} more side hustle hours per week or increase pricing to close the remaining ${formatCurrency(
           plan.remainingServiceGap
         )}.`
       );
     }
 
     if (!elements.skillsList?.value.trim() && !elements.experienceList?.value.trim()) {
-      steps.push("Add skills or past roles to unlock more targeted service ideas.");
+      steps.push("Add skills or past roles to unlock more targeted side hustle ideas.");
     }
 
     if (!steps.length) {
@@ -812,12 +813,21 @@
     setText(elements.goalProgressValue, formatPercent(plan.goalProgress));
     setText(elements.gapRemainingValue, formatCurrency(plan.remainingGap));
     setText(elements.totalIncomeValue, formatCurrency(plan.totalIncomeWithServices));
-    setText(elements.needsCoverage, formatCurrency(Math.abs(plan.needsCoverage)));
+    setText(elements.needsCoverage, formatCurrency(plan.needsCoverage));
     setText(elements.recommendedRate, `${CURRENCY_SYMBOL}${plan.recommendedRate}/hr`);
     setText(elements.remainingGapInline, formatCurrency(plan.remainingGap));
     setText(elements.servicesHoursPlanned, formatHours(plan.servicesHours));
     setText(elements.servicesCoverage, formatPercent(plan.serviceCoverage));
     setText(elements.remainingGap, formatCurrency(plan.remainingGap));
+
+    elements.needsCoverage?.classList.toggle(
+      "value-negative",
+      plan.currentIncome > 0 && plan.needsCoverage < 0
+    );
+    elements.needsCoverageText?.classList.toggle(
+      "copy-negative",
+      plan.currentIncome > 0 && plan.needsCoverage < 0
+    );
 
     setMeter(elements.goalMeterFill, plan.goalProgress);
     setMeter(elements.summaryGoalFill, plan.goalProgress);
@@ -836,12 +846,19 @@
       );
     }
 
-    if (plan.currentHourlyRate > 0) {
+    if (plan.currentHourlyRate > 0 && Math.round(plan.currentHourlyRate) >= DEFAULT_MIN_RATE) {
       setText(
         elements.rateGuidanceText,
         `Your current hourly rate is about ${formatCurrency(
           plan.currentHourlyRate
-        )}. Use that as a baseline when pricing services.`
+        )}. Use that as a baseline when pricing side hustles.`
+      );
+    } else if (plan.currentHourlyRate > 0) {
+      setText(
+        elements.rateGuidanceText,
+        `Your current hourly rate is about ${formatCurrency(
+          plan.currentHourlyRate
+        )}. That is below the recommended rate, so use ${CURRENCY_SYMBOL}${plan.recommendedRate}/hr as your baseline when pricing side hustles.`
       );
     } else {
       setText(
@@ -850,22 +867,29 @@
       );
     }
 
-    if (plan.remainingGap > 0 && plan.servicesMonthly > 0) {
+    if (plan.currentIncome > 0 && plan.needsCoverage < 0) {
       setText(
         elements.remainingGapText,
-        `Your current service plan still leaves ${formatCurrency(
+        `Your income does not yet cover monthly needs. You are short by ${formatCurrency(
+          Math.abs(plan.needsCoverage)
+        )} before the wider target gap.`
+      );
+    } else if (plan.remainingGap > 0 && plan.servicesMonthly > 0) {
+      setText(
+        elements.remainingGapText,
+        `Your current side hustle plan still leaves ${formatCurrency(
           plan.remainingGap
         )} to close.`
       );
     } else if (plan.remainingGap === 0 && plan.totalIncomeWithServices > 0) {
       setText(
         elements.remainingGapText,
-        "Your current income and planned services now cover the target."
+        "Your current income and planned side hustles now cover the target."
       );
     } else {
       setText(
         elements.remainingGapText,
-        "Add service lines to see how much of the target is still open."
+        "Add side hustle lines to see how much of the target is still open."
       );
     }
   }
@@ -1137,9 +1161,9 @@
       `Target monthly income: ${formatCurrency(plan.targetIncome)}`,
       `Extra income needed: ${formatCurrency(plan.extraIncomeNeeded)}`,
       `Extra hours needed per week: ${formatHours(plan.extraHoursNeeded)}`,
-      `Planned service income: ${formatCurrency(plan.servicesMonthly)}`,
+      `Planned side hustle income: ${formatCurrency(plan.servicesMonthly)}`,
       `Remaining gap: ${formatCurrency(plan.remainingGap)}`,
-      `Income with services: ${formatCurrency(plan.totalIncomeWithServices)}`,
+      `Income with side hustles: ${formatCurrency(plan.totalIncomeWithServices)}`,
     ];
   }
 
@@ -1261,10 +1285,10 @@
 
         doc.autoTable({
           startY: doc.lastAutoTable.finalY + 8,
-          head: [["Services plan", "Hours/week", "Rate", "Monthly total"]],
+          head: [["Side hustle plan", "Hours/week", "Rate", "Monthly total"]],
           body: serviceRows.length ? serviceRows : [["-", "-", "-", "-"]],
           foot: [[
-            "Total planned service income",
+            "Total planned side hustle income",
             "",
             "",
             formatCurrency(plan.servicesMonthly),
@@ -1281,7 +1305,7 @@
         });
       } else {
         doc.setFont("helvetica", "bold");
-        doc.text("Services plan", 14, 124);
+        doc.text("Side hustle plan", 14, 124);
         doc.setFont("helvetica", "normal");
 
         serviceRows.forEach((row, index) => {

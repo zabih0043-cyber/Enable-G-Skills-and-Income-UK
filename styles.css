@@ -515,6 +515,10 @@ h1 {
   letter-spacing: -0.03em;
 }
 
+.value-negative {
+  color: var(--danger);
+}
+
 .stat-note,
 .status-copy,
 .insight-copy,
@@ -540,6 +544,10 @@ h1 {
 .card-subtitle {
   margin: 8px 0 0;
   font-size: 0.95rem;
+}
+
+.copy-negative {
+  color: var(--danger);
 }
 
 .hero-side {

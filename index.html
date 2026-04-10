@@ -67,7 +67,8 @@
             <div class="hero-card">
               <div class="hero-top">
                 <span class="pill"
-                  >Mobile Planning App <span class="brand-version">v1.0</span></span
+                  >Mobile Planning App
+                  <span class="brand-version">v1.1</span></span
                 >
                 <span class="pill pill-soft"
                   >Live Calculations + Local Privacy</span
@@ -79,9 +80,9 @@
                 Fits Real Life.
               </h1>
               <p class="hero-subtitle">
-                Enable G - Spending &amp; Income [Current + Target] Tool helps
-                you understand your monthly needs, compare your current and
-                target income, and build a realistic plan within a few MINUTES.
+                Enable G Spending & Income Tool helps you understandyour monthly
+                (Living Costs) 'Needs only' & in a few minutes, find a side
+                hustle/s to achieve your income goals.
               </p>
 
               <div class="hero-actions">
@@ -93,10 +94,11 @@
 
               <section class="hero-stats" aria-label="Live plan summary">
                 <article class="hero-stat">
-                  <span class="stat-label">Target gap</span>
+                  <span class="stat-label">Extra Income Target</span>
                   <output id="heroExtraIncome" class="stat-value">£0</output>
                   <p class="stat-note">
-                    How much extra monthly income you still need.
+                    Monthly extra income targetc(be realistic; you can always
+                    increase later)
                   </p>
                 </article>
 
@@ -109,10 +111,10 @@
                 </article>
 
                 <article class="hero-stat">
-                  <span class="stat-label">Planned services</span>
+                  <span class="stat-label">Forecast Extra Income Amount</span>
                   <output id="heroServices" class="stat-value">£0</output>
                   <p class="stat-note">
-                    Monthly income currently planned from services.
+                    Monthly income currently planned from side hustles.
                   </p>
                 </article>
               </section>
@@ -127,10 +129,12 @@
                   <li>
                     Check whether current income covers monthly essentials
                   </li>
-                  <li>Calculate your hourly rate from salary and time</li>
-                  <li>Track your 2026 target gap in real time</li>
-                  <li>Use skills and experience to plan paid services</li>
-                  <li>Export a clean summary when your plan is ready</li>
+                  <li>Calculate your hourly rate from salary & work hours</li>
+                  <li>Track your 2026 extra income in real time</li>
+                  <li>
+                    Use skills & experience to suggest potential side hustles
+                  </li>
+                  <li>Export a summary to record & track progress</li>
                 </ul>
               </div>
 
@@ -161,7 +165,9 @@
               <header class="card-header compact-header">
                 <div>
                   <p class="eyebrow">Live plan status</p>
-                  <h2 id="planStatusTitle">How your income plan is tracking</h2>
+                  <h2 id="planStatusTitle">
+                    How your income plan is progressing
+                  </h2>
                 </div>
 
                 <span class="status-badge tone-neutral" id="planStatusBadge">
@@ -193,7 +199,7 @@
                 </article>
 
                 <article class="status-metric">
-                  <span class="status-label">Income with services</span>
+                  <span class="status-label">Income with side hustles</span>
                   <output id="totalIncomeValue" class="status-value">£0</output>
                 </article>
               </div>
@@ -379,8 +385,8 @@
               <header class="card-header">
                 <h2 id="currentTitle">Current Situation</h2>
                 <p class="card-subtitle">
-                  Understand the value of your current work before planning
-                  extra services.
+                  Understand your hourly pay rate so you can compare other
+                  income/side hustle
                 </p>
               </header>
 
@@ -440,10 +446,10 @@
 
             <section class="card" aria-labelledby="targetTitle">
               <header class="card-header">
-                <h2 id="targetTitle">Target and Extra Income Needed</h2>
+                <h2 id="targetTitle">Target and Extra Income Needs</h2>
                 <p class="card-subtitle">
-                  Set your target, price your time, and see the weekly effort
-                  required.
+                  Set your income target, hourly rate & see the hours needed to
+                  hit target
                 </p>
               </header>
 
@@ -506,7 +512,9 @@
 
               <section class="insight-grid" aria-label="Planning insights">
                 <article class="insight-card">
-                  <span class="insight-label">Income vs needs</span>
+                  <span class="insight-label"
+                    >Disposable Income (Income - Monthly Essentials)</span
+                  >
                   <output id="needsCoverage" class="insight-value">£0</output>
                   <p class="insight-copy" id="needsCoverageText">
                     Add your current income and needs to see whether essentials
@@ -525,12 +533,12 @@
                 </article>
 
                 <article class="insight-card">
-                  <span class="insight-label">Gap after services</span>
+                  <span class="insight-label">Gap after side hustles</span>
                   <output id="remainingGapInline" class="insight-value"
                     >£0</output
                   >
                   <p class="insight-copy" id="remainingGapText">
-                    Add service lines to see how much of the target is still
+                    Add side hustle lines to see how much of the target is still
                     open.
                   </p>
                 </article>
@@ -542,7 +550,7 @@
                 <h2 id="skillsTitle">Skills and Experience</h2>
                 <p class="card-subtitle">
                   Capture what you can already do well. The app uses this to
-                  suggest possible services.
+                  suggest possible side hustles.
                 </p>
               </header>
 
@@ -567,15 +575,15 @@
               </div>
 
               <p class="tip">
-                Tip: Useful services can come from admin work, driving, child
-                care, pet care, beauty, writing, tutoring, or basic tech
+                Tip: Useful side hustles can come from admin work, driving,
+                child care, pet care, beauty, writing, tutoring, or basic tech
                 support.
               </p>
 
               <section class="ideas-panel" aria-labelledby="ideasTitle">
                 <div class="ideas-header">
                   <div>
-                    <p class="eyebrow">Suggested services</p>
+                    <p class="eyebrow">Suggested side hustles</p>
                     <h3 id="ideasTitle">Ideas based on your profile</h3>
                   </div>
                   <p class="hint">Click any card to add it to your plan.</p>
@@ -590,14 +598,17 @@
 
             <section class="card" aria-labelledby="servicesTitle">
               <header class="card-header">
-                <h2 id="servicesTitle">Products and Services</h2>
+                <h2 id="servicesTitle">Side Hustle/s</h2>
                 <p class="card-subtitle">
                   Build a simple extra-income plan and track what it adds up to
                   each month.
                 </p>
               </header>
 
-              <section class="services-overview" aria-label="Services overview">
+              <section
+                class="services-overview"
+                aria-label="Side hustle overview"
+              >
                 <article class="service-summary">
                   <span class="service-summary-label"
                     >Planned hours per week</span
@@ -631,19 +642,19 @@
                   type="button"
                   id="btnAddServiceRow"
                 >
-                  Add service
+                  Add side hustle
                 </button>
               </div>
 
               <section
                 class="table-wrap"
-                aria-label="Services table"
+                aria-label="Side hustle table"
                 tabindex="0"
               >
                 <table class="data-table" id="servicesTable">
                   <thead>
                     <tr>
-                      <th scope="col">Service</th>
+                      <th scope="col">Side Hustle</th>
                       <th scope="col" class="right">Hrs/week</th>
                       <th scope="col" class="right">Rate/h (£)</th>
                       <th scope="col" class="right">Monthly (£)</th>
@@ -657,7 +668,7 @@
                     <tr class="service-row" data-index="0">
                       <td>
                         <label class="sr-only" for="svcDesc0"
-                          >Service description</label
+                          >Side hustle description</label
                         >
                         <input
                           id="svcDesc0"
@@ -781,7 +792,7 @@
                   <dd><output id="sumRemainingGap">£0</output></dd>
                 </div>
                 <div>
-                  <dt>Total income with services</dt>
+                  <dt>Total income with side hustles</dt>
                   <dd><output id="sumIncomeWithServices">£0</output></dd>
                 </div>
               </dl>
@@ -817,7 +828,9 @@
                   <output id="summaryCurrentIncome">£0</output>
                 </div>
                 <div>
-                  <span class="progress-label">Service plan</span>
+                  <span class="progress-label"
+                    >Extra Income From Side Hustles</span
+                  >
                   <output id="summaryServicePlan">£0</output>
                 </div>
               </div>
@@ -832,7 +845,7 @@
               <ul class="action-list" id="nextStepsList">
                 <li>Add your current monthly income and target.</li>
                 <li>Enter your weekly hours to calculate your hourly rate.</li>
-                <li>List your skills to unlock service suggestions.</li>
+                <li>List your skills to unlock side hustle suggestions.</li>
               </ul>
             </section>
           </aside>
