@@ -570,7 +570,8 @@
       }
 
       if (!response.ok || !payload?.ok) {
-        throw new Error(payload?.error || "The chatbot could not generate a response right now.");
+        const backendMessage = [payload?.error, payload?.details].filter(Boolean).join(" ");
+        throw new Error(backendMessage || "The chatbot could not generate a response right now.");
       }
 
       setChatbotMessageContent(
@@ -581,9 +582,7 @@
     } catch (error) {
       setChatbotMessageContent(
         pendingMessage,
-        error instanceof Error && error.message
-          ? `${error.message} ${CHATBOT_ERROR_MESSAGE}`
-          : CHATBOT_ERROR_MESSAGE
+        error instanceof Error && error.message ? error.message : CHATBOT_ERROR_MESSAGE
       );
     } finally {
       setChatbotSubmitting(false);

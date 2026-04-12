@@ -3,7 +3,7 @@ require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const path = require("path");
-const { generateChatReply, getHealthPayload } = require("./lib/chatbot");
+const { generateChatReply, getChatbotErrorInfo, getHealthPayload } = require("./lib/chatbot");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -28,13 +28,14 @@ app.post("/api/chat", async (req, res) => {
       ...result,
     });
   } catch (error) {
-    const statusCode = error.message === "Missing OPENAI_API_KEY" ? 500 : 502;
-    res.status(statusCode).json({
+    const errorInfo = getChatbotErrorInfo(error);
+    console.error("Chatbot server error", errorInfo);
+
+    res.status(errorInfo.statusCode).json({
       ok: false,
-      error:
-        statusCode === 500
-          ? "OPENAI_API_KEY is missing from the backend environment."
-          : "The chatbot could not generate a response right now.",
+      error: errorInfo.userMessage,
+      details: errorInfo.details,
+      code: errorInfo.code,
     });
   }
 });
