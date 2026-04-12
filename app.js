@@ -356,6 +356,8 @@
     serviceIdeas: $("#serviceIdeas"),
     serviceIdeasEmpty: $("#serviceIdeasEmpty"),
     nextStepsList: $("#nextStepsList"),
+    chatbotWidget: $("#chatbotWidget"),
+    chatbotPanel: $("#chatbotPanel"),
     chatbotWindow: $("#chatbotWindow"),
     chatbotForm: $("#chatbotForm"),
     chatbotSection: $("#chatbotSection"),
@@ -363,6 +365,8 @@
     chatbotSend: $("#chatbotSend"),
     chatbotClear: $("#chatbotClear"),
     chatbotPrompts: $(".chatbot-prompts"),
+    chatbotLauncher: $("#chatbotLauncher"),
+    chatbotToggle: $("#chatbotToggle"),
   };
 
   const staticFieldIds = [
@@ -483,6 +487,32 @@
     elements.chatbotWindow.scrollTop = elements.chatbotWindow.scrollHeight;
   }
 
+  function setChatbotExpanded(isExpanded) {
+    elements.chatbotWidget?.classList.toggle("is-open", isExpanded);
+
+    if (elements.chatbotPanel) {
+      elements.chatbotPanel.hidden = !isExpanded;
+    }
+
+    if (elements.chatbotLauncher) {
+      elements.chatbotLauncher.setAttribute("aria-expanded", String(isExpanded));
+    }
+
+    if (elements.chatbotToggle) {
+      elements.chatbotToggle.setAttribute("aria-expanded", String(isExpanded));
+    }
+  }
+
+  function toggleChatbotPanel() {
+    const isOpen = elements.chatbotWidget?.classList.contains("is-open");
+    setChatbotExpanded(!isOpen);
+
+    if (!isOpen) {
+      focusChatbotInput();
+      scrollChatbotToBottom();
+    }
+  }
+
   function appendChatbotMessage(role, text) {
     if (!elements.chatbotWindow) return null;
 
@@ -508,12 +538,14 @@
 
     if (elements.chatbotSend) {
       elements.chatbotSend.disabled = isSubmitting;
-      elements.chatbotSend.textContent = isSubmitting ? "Thinking..." : "Ask chatbot";
+      elements.chatbotSend.textContent = isSubmitting ? "Thinking..." : "Ask";
     }
 
     if (elements.chatbotClear) elements.chatbotClear.disabled = isSubmitting;
     if (elements.chatbotInput) elements.chatbotInput.disabled = isSubmitting;
     if (elements.chatbotSection) elements.chatbotSection.disabled = isSubmitting;
+    if (elements.chatbotLauncher) elements.chatbotLauncher.disabled = isSubmitting;
+    if (elements.chatbotToggle) elements.chatbotToggle.disabled = isSubmitting;
   }
 
   function focusChatbotInput() {
@@ -528,8 +560,26 @@
     const promptButton = target.closest("[data-chat-prompt]");
     if (!promptButton || !elements.chatbotInput) return;
 
+    setChatbotExpanded(true);
     elements.chatbotInput.value = promptButton.getAttribute("data-chat-prompt") || "";
     focusChatbotInput();
+  }
+
+  function handleChatbotInputFocus() {
+    setChatbotExpanded(true);
+  }
+
+  function handleChatbotToggleClick() {
+    if (chatbotRequestInFlight) return;
+    toggleChatbotPanel();
+  }
+
+  function handleChatbotKeydown(event) {
+    if (event.key !== "Escape" || chatbotRequestInFlight) return;
+    if (!elements.chatbotWidget?.classList.contains("is-open")) return;
+
+    setChatbotExpanded(false);
+    elements.chatbotLauncher?.focus();
   }
 
   async function handleChatbotSubmit(event) {
@@ -540,10 +590,12 @@
     const section = String(elements.chatbotSection?.value || "").trim();
 
     if (!message) {
+      setChatbotExpanded(true);
       focusChatbotInput();
       return;
     }
 
+    setChatbotExpanded(true);
     appendChatbotMessage("user", message);
     if (elements.chatbotInput) elements.chatbotInput.value = "";
 
@@ -596,6 +648,7 @@
 
     resetChatbotWindow();
     if (elements.chatbotForm) elements.chatbotForm.reset();
+    setChatbotExpanded(false);
     focusChatbotInput();
   }
 
@@ -1624,7 +1677,7 @@
   function handleDocumentInput(event) {
     const target = event.target;
     if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return;
-    if (target.closest(".chatbot-card")) return;
+    if (target.closest(".chatbot-widget")) return;
 
     if (mirroredFields[target.id]) syncMirroredField(target);
     if (IDEA_REFRESH_IDS.has(target.id)) queueIdeasRefresh();
@@ -1672,6 +1725,7 @@
 
   function wireEvents() {
     document.addEventListener("input", handleDocumentInput);
+    document.addEventListener("keydown", handleChatbotKeydown);
     elements.servicesTbody?.addEventListener("click", handleServicesClick);
     elements.serviceIdeas?.addEventListener("click", handleIdeasClick);
     elements.chatbotPrompts?.addEventListener("click", handleChatbotPromptsClick);
@@ -1686,12 +1740,16 @@
     elements.btnReset?.addEventListener("click", resetAll);
     elements.btnPrint?.addEventListener("click", exportPdf);
     elements.chatbotClear?.addEventListener("click", clearChatbotConversation);
+    elements.chatbotInput?.addEventListener("focus", handleChatbotInputFocus);
+    elements.chatbotLauncher?.addEventListener("click", handleChatbotToggleClick);
+    elements.chatbotToggle?.addEventListener("click", handleChatbotToggleClick);
   }
 
   function init() {
     const restored = restoreState();
     ensureDefaults();
     wireEvents();
+    setChatbotExpanded(false);
     resetChatbotWindow();
     renderIdeas(true);
 
