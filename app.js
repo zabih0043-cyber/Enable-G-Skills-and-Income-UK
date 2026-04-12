@@ -15,6 +15,12 @@
     "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js",
     "https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js",
   ];
+  const CHAT_API_URL = "/api/chat";
+  const CHATBOT_WELCOME_MESSAGE =
+    "Ask me about monthly needs, hourly rate, target income, side hustles, or any number shown in the app.";
+  const CHATBOT_LOADING_MESSAGE = "Thinking...";
+  const CHATBOT_ERROR_MESSAGE =
+    "I could not reach the chatbot just now. Please try again. If you are testing locally, make sure the backend is running.";
 
   const IDEA_LIBRARY = [
     {
@@ -180,6 +186,102 @@
       rate: 14,
       hours: 5,
     },
+    {
+      id: "bookkeeping",
+      keywords: ["bookkeeping", "bookkeeper", "accounts", "accounting", "invoice", "invoicing", "finance", "payroll", "quickbooks", "sage"],
+      title: "Bookkeeping & invoice support",
+      description: "Help sole traders or small businesses stay on top of invoices, receipts, and simple monthly records.",
+      rate: 18,
+      hours: 4,
+    },
+    {
+      id: "translation",
+      keywords: ["translation", "translator", "interpreting", "interpreter", "bilingual", "language", "arabic", "french", "spanish", "urdu"],
+      title: "Translation & interpreting help",
+      description: "Use language skills for document translation, call support, or short interpreting sessions.",
+      rate: 22,
+      hours: 3,
+    },
+    {
+      id: "photo",
+      keywords: ["photo", "photography", "photographer", "camera", "portrait", "photoshoot", "wedding", "event photo", "product photo", "editing photos"],
+      title: "Photography sessions & product shots",
+      description: "Offer portraits, event photos, or simple product shots for local sellers and small brands.",
+      rate: 28,
+      hours: 3,
+    },
+    {
+      id: "video",
+      keywords: ["video", "videography", "video editing", "editing video", "reels", "youtube", "podcast", "capcut", "premiere", "short-form"],
+      title: "Video editing & short clips",
+      description: "Edit reels, TikToks, YouTube clips, or simple promo videos for creators and small businesses.",
+      rate: 22,
+      hours: 4,
+    },
+    {
+      id: "web",
+      keywords: ["website", "wordpress", "wix", "squarespace", "shopify", "web design", "web developer", "seo", "landing page", "no-code"],
+      title: "Website setup & updates",
+      description: "Build simple pages, update listings, or refresh websites for local businesses that need quick support.",
+      rate: 24,
+      hours: 3,
+    },
+    {
+      id: "transcription",
+      keywords: ["transcription", "transcribe", "audio", "captions", "subtitles", "notes", "typing fast", "minute taking", "dictation", "proofread audio"],
+      title: "Transcription & typing help",
+      description: "Turn audio into notes, captions, or typed records for meetings, interviews, and online content.",
+      rate: 14,
+      hours: 4,
+    },
+    {
+      id: "valeting",
+      keywords: ["car wash", "valet", "valeting", "detailing", "car cleaning", "vehicle cleaning", "polish", "interior cleaning", "mobile wash", "cars"],
+      title: "Car cleaning & valeting",
+      description: "Offer basic mobile washes, interior cleans, and tidy-up services for busy drivers.",
+      rate: 16,
+      hours: 4,
+    },
+    {
+      id: "music",
+      keywords: ["music", "piano", "guitar", "singing", "voice", "violin", "drums", "music lesson", "instrument", "choir"],
+      title: "Music lessons & practice support",
+      description: "Teach beginner lessons or help learners with regular practice, technique, and confidence.",
+      rate: 22,
+      hours: 3,
+    },
+    {
+      id: "fitness",
+      keywords: ["fitness", "gym", "exercise", "workout", "coach", "personal trainer", "yoga", "pilates", "running", "wellness"],
+      title: "Fitness coaching & walk sessions",
+      description: "Offer beginner-friendly workouts, walking sessions, or accountability support if you have fitness experience.",
+      rate: 20,
+      hours: 4,
+    },
+    {
+      id: "crafts",
+      keywords: ["craft", "crochet", "knitting", "jewellery", "candles", "soap", "handmade", "etsy", "gift", "personalised"],
+      title: "Craft orders & handmade gifts",
+      description: "Turn making skills into paid custom orders for gifts, decorations, or personal items.",
+      rate: 16,
+      hours: 4,
+    },
+    {
+      id: "housesitting",
+      keywords: ["house sitting", "house sitter", "key holding", "keyholder", "home check", "property check", "airbnb", "guest check-in", "check in", "check-out"],
+      title: "House sitting & key handovers",
+      description: "Help with key collection, guest check-ins, and short home-check visits for landlords or travellers.",
+      rate: 15,
+      hours: 4,
+    },
+    {
+      id: "calls",
+      keywords: ["call handling", "customer support", "phone support", "appointment setting", "appointments", "telemarketing", "lead generation", "crm", "follow-up calls", "call centre"],
+      title: "Call handling & appointment setting",
+      description: "Support trades, clinics, or small businesses with call-backs, lead follow-up, and diary booking.",
+      rate: 17,
+      hours: 4,
+    },
   ];
 
   const DEFAULT_IDEAS = ["admin", "driving", "cleaning", "sales"]
@@ -254,6 +356,13 @@
     serviceIdeas: $("#serviceIdeas"),
     serviceIdeasEmpty: $("#serviceIdeasEmpty"),
     nextStepsList: $("#nextStepsList"),
+    chatbotWindow: $("#chatbotWindow"),
+    chatbotForm: $("#chatbotForm"),
+    chatbotSection: $("#chatbotSection"),
+    chatbotInput: $("#chatbotInput"),
+    chatbotSend: $("#chatbotSend"),
+    chatbotClear: $("#chatbotClear"),
+    chatbotPrompts: $(".chatbot-prompts"),
   };
 
   const staticFieldIds = [
@@ -288,6 +397,7 @@
   let ideasRefreshTimer = 0;
   let lastIdeasSignature = "";
   let pdfLibraryPromise = null;
+  let chatbotRequestInFlight = false;
 
   function toNumber(value) {
     const parsed = Number(value);
@@ -349,6 +459,145 @@
 
   function setMeter(node, percent) {
     if (node) node.style.width = `${clamp(percent, 0, 100)}%`;
+  }
+
+  function setChatbotMessageContent(node, text) {
+    if (!node) return;
+
+    const lines = String(text || "")
+      .split(/\r?\n+/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+    const safeLines = lines.length ? lines : [String(text || "").trim() || "..."];
+    const paragraphs = safeLines.map((line) => {
+      const paragraph = document.createElement("p");
+      paragraph.textContent = line;
+      return paragraph;
+    });
+
+    node.replaceChildren(...paragraphs);
+  }
+
+  function scrollChatbotToBottom() {
+    if (!elements.chatbotWindow) return;
+    elements.chatbotWindow.scrollTop = elements.chatbotWindow.scrollHeight;
+  }
+
+  function appendChatbotMessage(role, text) {
+    if (!elements.chatbotWindow) return null;
+
+    const message = document.createElement("article");
+    message.className = `chatbot-message ${
+      role === "user" ? "chatbot-message-user" : "chatbot-message-bot"
+    }`;
+    setChatbotMessageContent(message, text);
+    elements.chatbotWindow.appendChild(message);
+    scrollChatbotToBottom();
+    return message;
+  }
+
+  function resetChatbotWindow() {
+    if (!elements.chatbotWindow) return;
+
+    elements.chatbotWindow.replaceChildren();
+    appendChatbotMessage("bot", CHATBOT_WELCOME_MESSAGE);
+  }
+
+  function setChatbotSubmitting(isSubmitting) {
+    chatbotRequestInFlight = isSubmitting;
+
+    if (elements.chatbotSend) {
+      elements.chatbotSend.disabled = isSubmitting;
+      elements.chatbotSend.textContent = isSubmitting ? "Thinking..." : "Ask chatbot";
+    }
+
+    if (elements.chatbotClear) elements.chatbotClear.disabled = isSubmitting;
+    if (elements.chatbotInput) elements.chatbotInput.disabled = isSubmitting;
+    if (elements.chatbotSection) elements.chatbotSection.disabled = isSubmitting;
+  }
+
+  function focusChatbotInput() {
+    if (!elements.chatbotInput) return;
+    elements.chatbotInput.focus();
+  }
+
+  function handleChatbotPromptsClick(event) {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+
+    const promptButton = target.closest("[data-chat-prompt]");
+    if (!promptButton || !elements.chatbotInput) return;
+
+    elements.chatbotInput.value = promptButton.getAttribute("data-chat-prompt") || "";
+    focusChatbotInput();
+  }
+
+  async function handleChatbotSubmit(event) {
+    event.preventDefault();
+    if (chatbotRequestInFlight) return;
+
+    const message = String(elements.chatbotInput?.value || "").trim();
+    const section = String(elements.chatbotSection?.value || "").trim();
+
+    if (!message) {
+      focusChatbotInput();
+      return;
+    }
+
+    appendChatbotMessage("user", message);
+    if (elements.chatbotInput) elements.chatbotInput.value = "";
+
+    const pendingMessage = appendChatbotMessage("bot", CHATBOT_LOADING_MESSAGE);
+    setChatbotSubmitting(true);
+
+    try {
+      const response = await fetch(CHAT_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message,
+          section,
+        }),
+      });
+
+      let payload = null;
+      try {
+        payload = await response.json();
+      } catch (error) {
+        payload = null;
+      }
+
+      if (!response.ok || !payload?.ok) {
+        throw new Error(payload?.error || "The chatbot could not generate a response right now.");
+      }
+
+      setChatbotMessageContent(
+        pendingMessage,
+        payload.reply ||
+          "I can help explain the app, but I could not generate a reply just now. Please try again."
+      );
+    } catch (error) {
+      setChatbotMessageContent(
+        pendingMessage,
+        error instanceof Error && error.message
+          ? `${error.message} ${CHATBOT_ERROR_MESSAGE}`
+          : CHATBOT_ERROR_MESSAGE
+      );
+    } finally {
+      setChatbotSubmitting(false);
+      focusChatbotInput();
+      scrollChatbotToBottom();
+    }
+  }
+
+  function clearChatbotConversation() {
+    if (chatbotRequestInFlight) return;
+
+    resetChatbotWindow();
+    if (elements.chatbotForm) elements.chatbotForm.reset();
+    focusChatbotInput();
   }
 
   function todayString() {
@@ -632,9 +881,13 @@
 
     setText(
       elements.minRateHint,
-      plan.minimumRateInput > 0 && plan.minimumRateInput < DEFAULT_MIN_RATE
-        ? `Rates below ${CURRENCY_SYMBOL}${DEFAULT_MIN_RATE}/hr usually stretch the hours too far. Try raising this to at least ${CURRENCY_SYMBOL}${DEFAULT_MIN_RATE}/hr.`
-        : `Suggested floor: ${CURRENCY_SYMBOL}${plan.recommendedRate}/hr based on your current earning power.`
+      plan.minimumRateInput <= 0
+        ? `Suggested minimum: ${CURRENCY_SYMBOL}${DEFAULT_MIN_RATE}/h based on your current earnings hourly rate.`
+        : plan.minimumRateInput < DEFAULT_MIN_RATE
+          ? `Rate is below ${CURRENCY_SYMBOL}${DEFAULT_MIN_RATE}/hr. Try and raise it to at least ${CURRENCY_SYMBOL}${DEFAULT_MIN_RATE}.`
+          : plan.minimumRateInput > DEFAULT_MIN_RATE
+            ? "Your hourly rate is good. It is above the recommended minimum."
+            : "Your hourly rate is fine. It meets the recommended minimum."
     );
 
     setText(
@@ -702,25 +955,67 @@
     });
   }
 
+  function normalizeIdeaText(text) {
+    return String(text || "")
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   function getIdeaProfileText() {
-    return [
-      elements.currentJob?.value || "",
-      elements.skillsList?.value || "",
-      elements.experienceList?.value || "",
-    ]
-      .join(" ")
-      .toLowerCase();
+    return normalizeIdeaText(
+      [
+        elements.currentJob?.value || "",
+        elements.skillsList?.value || "",
+        elements.experienceList?.value || "",
+      ].join(" ")
+    );
+  }
+
+  function scoreIdeaMatch(idea, profileText, tokenSet) {
+    let score = 0;
+
+    idea.keywords.forEach((keyword) => {
+      const normalizedKeyword = normalizeIdeaText(keyword);
+      if (!normalizedKeyword) return;
+
+      const keywordParts = normalizedKeyword.split(" ");
+
+      if (keywordParts.length > 1) {
+        if (profileText.includes(normalizedKeyword)) {
+          score += 8 + keywordParts.length;
+        } else if (keywordParts.every((part) => tokenSet.has(part))) {
+          score += 5 + keywordParts.length;
+        }
+        return;
+      }
+
+      if (tokenSet.has(normalizedKeyword)) {
+        score += 4;
+      }
+    });
+
+    return score;
   }
 
   function getIdeaMatches(profileText = getIdeaProfileText()) {
-
     if (!profileText.trim()) return DEFAULT_IDEAS;
 
-    const matches = IDEA_LIBRARY.filter((idea) =>
-      idea.keywords.some((keyword) => profileText.includes(keyword))
-    );
+    const tokenSet = new Set(profileText.split(" ").filter(Boolean));
+    const matches = IDEA_LIBRARY
+      .map((idea, index) => ({
+        idea,
+        index,
+        score: scoreIdeaMatch(idea, profileText, tokenSet),
+      }))
+      .filter((entry) => entry.score > 0)
+      .sort((left, right) => right.score - left.score || left.index - right.index)
+      .slice(0, 6)
+      .map((entry) => entry.idea);
 
-    return matches.length ? Array.from(new Set(matches)).slice(0, 6) : DEFAULT_IDEAS;
+    return matches.length ? matches : DEFAULT_IDEAS;
   }
 
   function renderIdeas(force = false) {
@@ -1033,7 +1328,7 @@
       } else if (id === "targetMonthlyIncome" || id === "targetMonthly") {
         element.value = String(DEFAULT_TARGET);
       } else if (id === "minHourlyRate") {
-        element.value = String(DEFAULT_MIN_RATE);
+        element.value = "";
       } else {
         element.value = "";
       }
@@ -1330,6 +1625,7 @@
   function handleDocumentInput(event) {
     const target = event.target;
     if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return;
+    if (target.closest(".chatbot-card")) return;
 
     if (mirroredFields[target.id]) syncMirroredField(target);
     if (IDEA_REFRESH_IDS.has(target.id)) queueIdeasRefresh();
@@ -1371,10 +1667,6 @@
     if (elements.targetMonthly && !elements.targetMonthly.value) {
       elements.targetMonthly.value = String(DEFAULT_TARGET);
     }
-    if (elements.minHourlyRate && !elements.minHourlyRate.value) {
-      elements.minHourlyRate.value = String(DEFAULT_MIN_RATE);
-    }
-
     nextServiceIndex = Math.max(1, getHighestServiceIndex() + 1);
     updateRemoveButtons();
   }
@@ -1383,6 +1675,8 @@
     document.addEventListener("input", handleDocumentInput);
     elements.servicesTbody?.addEventListener("click", handleServicesClick);
     elements.serviceIdeas?.addEventListener("click", handleIdeasClick);
+    elements.chatbotPrompts?.addEventListener("click", handleChatbotPromptsClick);
+    elements.chatbotForm?.addEventListener("submit", handleChatbotSubmit);
     window.addEventListener("pagehide", flushPendingSave);
 
     elements.btnAddServiceRow?.addEventListener("click", () => {
@@ -1392,12 +1686,14 @@
 
     elements.btnReset?.addEventListener("click", resetAll);
     elements.btnPrint?.addEventListener("click", exportPdf);
+    elements.chatbotClear?.addEventListener("click", clearChatbotConversation);
   }
 
   function init() {
     const restored = restoreState();
     ensureDefaults();
     wireEvents();
+    resetChatbotWindow();
     renderIdeas(true);
 
     if (!restored) setText(elements.saveStatus, "Private & autosaved locally");

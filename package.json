@@ -5,7 +5,9 @@
   "scripts": {
     "start": "parcel index.html",
     "dev": "parcel index.html",
-    "build": "parcel build index.html --public-url ./"
+    "build": "parcel build index.html --public-url ./",
+    "server": "node server.js",
+    "server:dev": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +15,11 @@
   "type": "commonjs",
   "devDependencies": {
     "parcel-bundler": "^1.12.5"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "openai": "^6.34.0"
   }
 }

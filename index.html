@@ -81,8 +81,8 @@
               </h1>
               <p class="hero-subtitle">
                 Enable G Spending & Income Tool helps you understand your
-                monthly (Living Costs) 'Needs only' & in a few minutes, find a
-                side hustle/s to achieve your income goals.
+                monthly 'Needs only' living costs & in a few minutes, find side
+                hustles to achieve your income goals.
               </p>
 
               <div class="hero-actions">
@@ -97,7 +97,7 @@
                   <span class="stat-label">Extra Income Target</span>
                   <output id="heroExtraIncome" class="stat-value">£0</output>
                   <p class="stat-note">
-                    Monthly extra income targetc(be realistic; you can always
+                    Monthly extra income target (be realistic; you can always
                     increase later)
                   </p>
                 </article>
@@ -114,7 +114,7 @@
                   <span class="stat-label">Forecast Extra Income Amount</span>
                   <output id="heroServices" class="stat-value">£0</output>
                   <p class="stat-note">
-                    Monthly income currently planned from side hustles.
+                    Monthly income currently estimated from side hustles.
                   </p>
                 </article>
               </section>
@@ -192,7 +192,7 @@
                 </article>
 
                 <article class="status-metric">
-                  <span class="status-label">Gap remaining</span>
+                  <span class="status-label">Gap remaining to hit goal</span>
                   <output id="gapRemainingValue" class="status-value"
                     >£0</output
                   >
@@ -260,7 +260,7 @@
 
                 <div class="field">
                   <label for="targetMonthlyIncome">
-                    My Target for 2026 (monthly) - £
+                    My goal income for 2026 (monthly) - £
                   </label>
                   <input
                     id="targetMonthlyIncome"
@@ -386,7 +386,7 @@
                 <h2 id="currentTitle">Current Situation</h2>
                 <p class="card-subtitle">
                   Understand your hourly pay rate so you can compare other
-                  income/side hustle
+                  income/side hustles
                 </p>
               </header>
 
@@ -448,8 +448,8 @@
               <header class="card-header">
                 <h2 id="targetTitle">Target & Extra Income Needs</h2>
                 <p class="card-subtitle">
-                  Set your income target, hourly rate & see the hours needed to
-                  hit target
+                  Set your income goal, hourly rate & see the hours needed to
+                  hit this goal
                 </p>
               </header>
 
@@ -465,10 +465,9 @@
                     min="0"
                     step="1"
                     placeholder="11"
-                    value="11"
                   />
                   <p class="hint" id="minRateHint">
-                    Guideline: do not price below £11/hr.
+                    Suggested minimum: £11/h based on your current earnings hourly rate.
                   </p>
                 </div>
 
@@ -848,14 +847,85 @@
                 <li>List your skills to unlock side hustle suggestions.</li>
               </ul>
             </section>
+
+            <section class="card chatbot-card" aria-labelledby="chatbotTitle">
+              <header class="card-header compact-header">
+                <div>
+                  <p class="eyebrow">Help Assistant</p>
+                  <h2 id="chatbotTitle">Ask the Tool</h2>
+                </div>
+                <span class="status-badge tone-neutral">Beta</span>
+              </header>
+
+              <p class="card-subtitle">
+                Ask about a part of the tool if you are unsure what it means or
+                what to enter.
+              </p>
+
+              <div class="chatbot-window" id="chatbotWindow" aria-live="polite">
+                <article class="chatbot-message chatbot-message-bot">
+                  <p>
+                    Ask me about monthly needs, hourly rate, target income,
+                    side hustles, or any number shown in the app.
+                  </p>
+                </article>
+              </div>
+
+              <div class="chatbot-prompts" aria-label="Suggested chatbot topics">
+                <button class="btn btn-ghost" type="button" data-chat-prompt="What is Monthly Needs?">
+                  What is Monthly Needs?
+                </button>
+                <button class="btn btn-ghost" type="button" data-chat-prompt="How is hourly rate calculated?">
+                  How is hourly rate calculated?
+                </button>
+                <button class="btn btn-ghost" type="button" data-chat-prompt="What does gap remaining mean?">
+                  What does gap remaining mean?
+                </button>
+              </div>
+
+              <form id="chatbotForm" class="chatbot-form">
+                <div class="field">
+                  <label for="chatbotSection">Related section</label>
+                  <select id="chatbotSection" name="chatbotSection">
+                    <option value="">General question</option>
+                    <option value="profile">Profile</option>
+                    <option value="monthlyneeds">Monthly Needs</option>
+                    <option value="currentsituation">Current Situation</option>
+                    <option value="targetextraincome">Target & Extra Income</option>
+                    <option value="skills">Skills & Experience</option>
+                    <option value="sidehustles">Side Hustles</option>
+                    <option value="summary">Summary</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="chatbotInput">Your question</label>
+                  <textarea
+                    id="chatbotInput"
+                    name="chatbotInput"
+                    rows="4"
+                    placeholder="For example: What does disposable income mean here?"
+                  ></textarea>
+                </div>
+
+                <div class="chatbot-actions">
+                  <button class="btn btn-primary" type="submit" id="chatbotSend">
+                    Ask chatbot
+                  </button>
+                  <button class="btn btn-ghost" type="button" id="chatbotClear">
+                    Clear chat
+                  </button>
+                </div>
+              </form>
+            </section>
           </aside>
         </div>
       </main>
 
       <footer class="site-footer">
         <p>
-          &copy; <span id="year"></span> Enable G. Built for clarity, privacy,
-          & practical planning.
+          &copy; <span id="year"></span> Enable G. Built for clarity, privacy, &
+          practical planning.
         </p>
       </footer>
     </div>
