@@ -15,6 +15,8 @@
     "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js",
     "https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js",
   ];
+  // Keep the assistant code ready for later rollout without showing or calling it.
+  const CHATBOT_ENABLED = false;
   const CHAT_API_URL = "/api/chat";
   const CHATBOT_WELCOME_MESSAGE =
     "Ask me about monthly needs, hourly rate, target income, side hustles, or any number shown in the app.";
@@ -650,6 +652,21 @@
     if (elements.chatbotForm) elements.chatbotForm.reset();
     setChatbotExpanded(false);
     focusChatbotInput();
+  }
+
+  function syncChatbotAvailability() {
+    if (!elements.chatbotWidget) return;
+
+    if (CHATBOT_ENABLED) {
+      elements.chatbotWidget.hidden = false;
+      elements.chatbotWidget.removeAttribute("aria-hidden");
+      setChatbotExpanded(false);
+      resetChatbotWindow();
+      return;
+    }
+
+    elements.chatbotWidget.hidden = true;
+    elements.chatbotWidget.setAttribute("aria-hidden", "true");
   }
 
   function todayString() {
@@ -1725,11 +1742,8 @@
 
   function wireEvents() {
     document.addEventListener("input", handleDocumentInput);
-    document.addEventListener("keydown", handleChatbotKeydown);
     elements.servicesTbody?.addEventListener("click", handleServicesClick);
     elements.serviceIdeas?.addEventListener("click", handleIdeasClick);
-    elements.chatbotPrompts?.addEventListener("click", handleChatbotPromptsClick);
-    elements.chatbotForm?.addEventListener("submit", handleChatbotSubmit);
     window.addEventListener("pagehide", flushPendingSave);
 
     elements.btnAddServiceRow?.addEventListener("click", () => {
@@ -1739,18 +1753,23 @@
 
     elements.btnReset?.addEventListener("click", resetAll);
     elements.btnPrint?.addEventListener("click", exportPdf);
-    elements.chatbotClear?.addEventListener("click", clearChatbotConversation);
-    elements.chatbotInput?.addEventListener("focus", handleChatbotInputFocus);
-    elements.chatbotLauncher?.addEventListener("click", handleChatbotToggleClick);
-    elements.chatbotToggle?.addEventListener("click", handleChatbotToggleClick);
+
+    if (CHATBOT_ENABLED) {
+      document.addEventListener("keydown", handleChatbotKeydown);
+      elements.chatbotPrompts?.addEventListener("click", handleChatbotPromptsClick);
+      elements.chatbotForm?.addEventListener("submit", handleChatbotSubmit);
+      elements.chatbotClear?.addEventListener("click", clearChatbotConversation);
+      elements.chatbotInput?.addEventListener("focus", handleChatbotInputFocus);
+      elements.chatbotLauncher?.addEventListener("click", handleChatbotToggleClick);
+      elements.chatbotToggle?.addEventListener("click", handleChatbotToggleClick);
+    }
   }
 
   function init() {
     const restored = restoreState();
     ensureDefaults();
     wireEvents();
-    setChatbotExpanded(false);
-    resetChatbotWindow();
+    syncChatbotAvailability();
     renderIdeas(true);
 
     if (!restored) setText(elements.saveStatus, "Private & autosaved locally");
