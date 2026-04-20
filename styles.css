@@ -1061,6 +1061,10 @@ textarea {
   pointer-events: none;
 }
 
+.chatbot-widget[hidden] {
+  display: none !important;
+}
+
 .chatbot-widget > * {
   pointer-events: auto;
 }
